@@ -5,21 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Time, in Color</title>
 
-  <!-- Main stylesheet -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main>
-  <h1>Time, in Color</h1>
-  <p>The background changes every minute.</p>
+    <h1>Time, in Color</h1>
+    <p>The background changes every minute.</p>
 
-  <button id="colorButton">Change Color</button>
+    <button id="colorButton" type="button">
+      Change Color
+    </button>
 
- <input type="range" id="brightnessSlider" min="30" max="80" value="60">
+    <input
+      type="range"
+      id="brightnessSlider"
+      min="30"
+      max="80"
+      value="60"
+    />
+  </main>
 
-</main>
-
-  <!-- Main script -->
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
