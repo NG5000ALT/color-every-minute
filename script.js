@@ -7,8 +7,14 @@ function changeBackground() {
   document.body.style.backgroundColor = randomColor();
 }
 
-// Change immediately on load
 changeBackground();
 
-// Change every minute (60,000 ms)
-setInterval(changeBackground, 60000);
+// Sync to real minute boundary
+const now = new Date();
+const msUntilNextMinute =
+  (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+
+setTimeout(() => {
+  changeBackground();
+  setInterval(changeBackground, 60000);
+}, msUntilNextMinute);
