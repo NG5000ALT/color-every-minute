@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const button = document.getElementById("colorButton");
 
   function applyColor() {
-    document.body.style.backgroundColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    const color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+    document.body.style.backgroundColor = color;
   }
 
   function generateNewColor() {
@@ -15,17 +16,27 @@ document.addEventListener("DOMContentLoaded", () => {
     applyColor();
   }
 
-  // Initial color
+  // 🔥 Force initial state
+  if (slider) {
+    lightness = Number(slider.value);
+  }
+
   applyColor();
 
-  // Manual change
-  button.addEventListener("click", generateNewColor);
+  // Manual color change
+  if (button) {
+    button.addEventListener("click", generateNewColor);
+  }
 
-  // Brightness control
-  slider.addEventListener("input", (e) => {
-    lightness = e.target.value;
-    applyColor();
-  });
+  // Brightness slider
+  if (slider) {
+    slider.addEventListener("input", (e) => {
+      lightness = Number(e.target.value);
+      applyColor();
+    });
+  } else {
+    console.error("Brightness slider not found");
+  }
 
   // Sync to real minute boundary
   const now = new Date();
