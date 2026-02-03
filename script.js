@@ -1,23 +1,31 @@
 document.addEventListener("DOMContentLoaded", () => {
-  function randomColor() {
-    const hue = Math.floor(Math.random() * 360);
-    return `hsl(${hue}, 70%, 60%)`;
+  let hue = Math.floor(Math.random() * 360);
+  const saturation = 70;
+  let lightness = 60;
+
+  const slider = document.getElementById("brightnessSlider");
+  const button = document.getElementById("colorButton");
+
+  function applyColor() {
+    document.body.style.backgroundColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
   }
 
-  function changeBackground() {
-    document.body.style.backgroundColor = randomColor();
+  function generateNewColor() {
+    hue = Math.floor(Math.random() * 360);
+    applyColor();
   }
 
   // Initial color
-  changeBackground();
+  applyColor();
 
-  // Manual change (button)
-  const button = document.getElementById("colorButton");
-  if (button) {
-    button.addEventListener("click", changeBackground);
-  } else {
-    console.error("Button not found");
-  }
+  // Manual change
+  button.addEventListener("click", generateNewColor);
+
+  // Brightness control
+  slider.addEventListener("input", (e) => {
+    lightness = e.target.value;
+    applyColor();
+  });
 
   // Sync to real minute boundary
   const now = new Date();
@@ -25,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
 
   setTimeout(() => {
-    changeBackground();
-    setInterval(changeBackground, 60000);
+    generateNewColor();
+    setInterval(generateNewColor, 60000);
   }, msUntilNextMinute);
 });
